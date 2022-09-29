@@ -70,6 +70,7 @@ function App() {
       const signer = provider.getSigner();
       const address = (await signer.getAddress()).toLowerCase();
       setAccounts(address)
+      console.log(address)
       if(provider) {
         setWeb3Provider(provider)
       }
@@ -290,7 +291,6 @@ function App() {
               </p>
             </div>
           ) }
-          {(web3Provider != null && globalNotMinted === 0) && <p>All of your Arcturium has been redeemed already. Public mint opens 2:00 pm EST 24/09/2022</p>}
         </div>
       </div>
       </div>
