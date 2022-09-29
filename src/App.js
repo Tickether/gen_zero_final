@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import { ethers, BigNumber } from "ethers";
+import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import gen from './Gen.json';
 import WalletConnectProvider from "@walletconnect/web3-provider";
@@ -210,15 +210,13 @@ function App() {
 
           }
         }
-        
       } 
       catch (err) {
-          console.log('error', err )
+        console.log('error', err )
       }
     }
-      
-    }
   }
+}
 
   return (
     
