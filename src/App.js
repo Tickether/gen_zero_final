@@ -34,7 +34,7 @@ const allowlist = require ('./allowlist');
 
 
 const arcAddress = '0x4B396F08cDa12A9F6C0cD9cBab6bDfa06585077B';
-const genAddress = '0x5f095d8F0Bb3BFC75355Be996E8aAFD5ad95B3a8';
+const genAddress = insertMainnetGenAddress;
 
 
 const allowList = allowlist.allowListAddresses();
@@ -94,7 +94,7 @@ function App() {
           });
           console.log(arcTokensOwned)
 
-          const genURL = 'https://api-goerli.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+genAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
+          const genURL = 'https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+genAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
         await fetch(genURL)
           .then((response) => { return response.json();})
           .then((data) => {
