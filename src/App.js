@@ -3,6 +3,7 @@ import './App.css';
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import gen from './Gen.json';
+import walletSnapshot from './walletSnapshot.json'
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import {CoinbaseWalletSDK} from "@coinbase/wallet-sdk";
 
@@ -78,20 +79,21 @@ function App() {
       let arcTokensOwned = []
       let genTokensOwned = []
 
-      const arcURL = 'https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+arcAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
-        await fetch(arcURL)
-          .then((response) => { return response.json();})
-          .then((data) => {
-            for(let i = 0; i < data.result.length; i++) {
-              const owner = data.result[i]['to'];
-              if (owner === address) {
-                arcTokensOwned.push(data.result[i]['tokenID']);
-              } else {
-                console.log("err");
-              };
+      // const arcURL = 'https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+arcAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
+      //   await fetch(arcURL)
+      //     .then((response) => { return response.json();})
+      //     .then((data) => {
+      //       for(let i = 0; i < data.result.length; i++) {
+      //         const owner = data.result[i]['to'];
+      //         if (owner === address) {
+      //           arcTokensOwned.push(data.result[i]['tokenID']);
+      //         } else {
+      //           console.log("err");
+      //         };
               
-            }
-          });
+      //       }
+      //     });
+      arcTokensOwned.push(walletSnapshot[address])
           console.log(arcTokensOwned)
 
           const genURL = 'https://api-goerli.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+genAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
@@ -109,7 +111,7 @@ function App() {
             }
           });
           console.log(genTokensOwned)
-        let genTokensNotMinted = arcTokensOwned.length - genTokensOwned.length;
+        let genTokensNotMinted = arcTokensOwned[0] - genTokensOwned.length;
         
         console.log(genTokensNotMinted)
         setArcTokens(arcTokensOwned)
@@ -236,7 +238,7 @@ function App() {
 
         <p className="paragraph">
           {(web3Provider != null) && (<span>Connected.</span>) }
-          {(web3Provider != null && globalArcTokens.length===0) && (<span> You must hold Arcturium to mint. Public mint opens 2:00 pm EST 24/09/2022</span>)}
+          {(web3Provider != null && globalArcTokens[0]===0) && (<span> You must hold Arcturium to mint. Public mint opens 2:00 pm EST 24/09/2022</span>)}
           { (web3Provider != null && globalNotMinted>0) && (<span>You have {globalNotMinted} Gen-0 available to mint.</span>)}
           
           </p>
@@ -244,7 +246,7 @@ function App() {
         {totalSupply > 0 && <div> <p className='paragraph'> {totalSupply} of 6000 Gen-0 Characters have been minted.</p></div>}
 
         
-          {(isConfirming && Boolean(globalArcTokens) ) && <p className='paragraph'>Awaiting confirmation in wallet...</p>} 
+          {(isConfirming && Boolean(globalArcTokens[0]) ) && <p className='paragraph'>Awaiting confirmation in wallet...</p>} 
 
           {isSent && <span><p className='inactive'>Awaiting confirmation in wallet...</p><br></br><p className='paragraph'> Transaction sent...</p></span>}
           {isMinted && <span><p className='inactive'>Awaiting confirmation in wallet...</p>
@@ -254,8 +256,8 @@ function App() {
           <p className='paragraph'>Minted. Your transaction hash is {txnHash}</p></span>}
         
 
-        {(isConfirming && !Boolean(globalArcTokens)) && <p className='paragraph'>Mint cancelled. You must hold Arcturium to mint. Public mint opens 2:00 pm EST 24/09/2022</p>}
-        {(web3Provider != null && globalNotMinted === 0 && globalArcTokens != 0) && <p className='paragraph'>You have minted all available Gen-0. Public mint opens 2:00 pm EST 24/09/2022 </p>}
+        {(isConfirming && !Boolean([globalArcTokens[0]])) && <p className='paragraph'>Mint cancelled. You must hold Arcturium to mint. Public mint opens 2:00 pm EST 24/09/2022</p>}
+        {(web3Provider !== null && globalNotMinted === 0 && globalArcTokens[0] !== 0) && <p className='paragraph'>You have minted all available Gen-0. Public mint opens 2:00 pm EST 24/09/2022 </p>}
         
 
 
