@@ -93,7 +93,9 @@ function App() {
               
       //       }
       //     });
-      arcTokensOwned.push(walletSnapshot[address])
+      console.log(walletSnapshot)
+      console.log(walletSnapshot[0])
+      arcTokensOwned.push(walletSnapshot[0][address])
           console.log(arcTokensOwned)
 
           const genURL = 'https://api-goerli.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+genAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
