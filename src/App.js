@@ -35,7 +35,7 @@ const allowlist = require ('./allowlist');
 
 
 const arcAddress = '0x4B396F08cDa12A9F6C0cD9cBab6bDfa06585077B';
-const genAddress = '0x5f095d8F0Bb3BFC75355Be996E8aAFD5ad95B3a8';
+const genAddress = '0x10438338ebafb9Ca82136435E31eFC82A5c975cD';
 
 
 const allowList = allowlist.allowListAddresses();
@@ -81,7 +81,7 @@ function App() {
 
       arcTokensOwned.push(walletSnapshot[0][address])
 
-          const genURL = 'https://api-goerli.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+genAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
+          const genURL = 'https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+genAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
         await fetch(genURL)
           .then((response) => { return response.json();})
           .then((data) => {
@@ -125,16 +125,20 @@ function App() {
     const signer = provider.getSigner();
     const contract = new ethers.Contract(
         genAddress,
-        gen.abi,
+        gen.output.abi,
         signer
     );
     console.log(contract)
+ //   console.log(gen.output.abi)
     try {
+        console.log("test")
         const response = await contract.totalSupply();
+        console.log(response)
         const hex = response['_hex']
         const maxSupply =  parseInt(hex,16)
+        console.log(maxSupply)
         updateTotalSupply(maxSupply)
-        setTotalSupply(Boolean(maxSupply))
+        setTotalSupply(Boolean(1))
     } 
     catch (err) {
         console.log('error', err )
@@ -158,7 +162,7 @@ function App() {
       
       const genContract = new ethers.Contract(
         genAddress,
-        gen.abi,
+        gen.output.abi,
         signer
       );
       if (index === -1) {
@@ -186,7 +190,6 @@ function App() {
             txReceipt[0]=txr
             console.log('test')
             } while (txReceipt[0] == null) ;
-            // did 2.5k loops before i abrted
             
             console.log(txReceipt[0])
             setTxnHash(transactionHash)
@@ -226,7 +229,7 @@ function App() {
           
           </p>
         
-        {totalSupply > 0 && <div> <p className='paragraph'> {totalSupply} of 6000 Gen-0 Characters have been minted.</p></div>}
+        {isTotalSupply && <div> <p className='paragraph'> {totalSupply} of 6000 Gen-0 Characters have been minted.</p></div>}
 
         
           {(isConfirming && Boolean(globalArcTokens[0]) ) && <p className='paragraph'>Awaiting confirmation in wallet...</p>} 
