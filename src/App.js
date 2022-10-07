@@ -157,6 +157,8 @@ function App() {
       let index = null
       if (allowList.includes(address)) {
         index = allowList.indexOf(address)
+      } else {
+        index = -1
       }
       console.log(index)
       
