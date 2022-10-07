@@ -42,4 +42,4 @@ console.log('claiming address:',clamingAddress)
 console.log('root hash: ', rootHash )
 
 
-//0x7aa3e0fb3c54d6176ce0ae9b6511211ed83b738472965e3c01c26b9ef3546bcc
+//This is the root hash: 0x526372519cba79e407e0ff88fb1160bec242d680c27b69546e7c3bb72694ab46
