@@ -79,24 +79,7 @@ function App() {
       let arcTokensOwned = []
       let genTokensOwned = []
 
-      // const arcURL = 'https://api.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+arcAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
-      //   await fetch(arcURL)
-      //     .then((response) => { return response.json();})
-      //     .then((data) => {
-      //       for(let i = 0; i < data.result.length; i++) {
-      //         const owner = data.result[i]['to'];
-      //         if (owner === address) {
-      //           arcTokensOwned.push(data.result[i]['tokenID']);
-      //         } else {
-      //           console.log("err");
-      //         };
-              
-      //       }
-      //     });
-      console.log(walletSnapshot)
-      console.log(walletSnapshot[0])
       arcTokensOwned.push(walletSnapshot[0][address])
-          console.log(arcTokensOwned)
 
           const genURL = 'https://api-goerli.etherscan.io/api?module=account&action=tokennfttx&contractaddress='+genAddress+'&address='+address+'&page=1&offset=100&startblock=0&endblock=27025780&sort=asc&apikey=S3KASSMNT3ARZHEUU2NM9G3IMXH98BB8W7'
         await fetch(genURL)
@@ -112,10 +95,8 @@ function App() {
               
             }
           });
-          console.log(genTokensOwned)
         let genTokensNotMinted = arcTokensOwned[0] - genTokensOwned.length;
         
-        console.log(genTokensNotMinted)
         setArcTokens(arcTokensOwned)
         setGenTokens(genTokensOwned)
         setNotMinted(genTokensNotMinted)
