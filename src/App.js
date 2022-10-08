@@ -203,6 +203,7 @@ function App() {
         }
       } 
       catch (err) {
+        setConfirming(Boolean(0))
         console.log('error', err )
       }
     }
