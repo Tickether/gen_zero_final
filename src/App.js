@@ -242,7 +242,7 @@ function App() {
           <br></br>
           <p className='inactive'> Transaction sent...</p>
           <br></br>
-          <p className='paragraph'>Minted. Your transaction hash is {txnHash}</p></span>}
+          <p className='paragraph'>Minted. Your transaction hash is: <br></br> {txnHash}</p></span>}
         
 
         {(isConfirming && !Boolean([globalArcTokens[0]])) && <p className='paragraph'>Mint cancelled. You must hold Arcturium to mint. Public mint opens 2:00 pm EST 24/09/2022</p>}
